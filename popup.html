@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Whistle Web Debugger</title>
+<style>
+* {box-sizing: border-box;}
+html, body {margin: 0; padding: 0; font-family: Helvetica Neue,Helvetica,Arial,sans-serif;}
+body {margin: 6px;}
+.menu-list, .menu-list li { list-style: none; margin: 0; padding: 0;}
+.menu-list li {display: block; line-height: 30px; height: 30px; padding-left: 25px; width: 100px; color: #000; cursor: pointer; position: relative;}
+.menu-list .item:hover { border: solid 1px #bcd; line-height: 28px; padding-left: 24px; border-radius: 3px; color: #47b;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(0.4, hsl(215, 67%, 97%)), color-stop(0.41, hsl(213, 48%, 95%)));}
+.menu-list .checked:before {content: '●'; color: rgb(78, 200, 59); font-size: 16px; position: absolute; left: 9px; top: -1px;}
+.menu-list .checked:hover:before {left: 8px;}
+.menu-list .separator {height: 0; border-bottom: 1px solid #ddd; margin: 5px 0;}
+</style>
+</head>
+<body>
+<ul id="menu" class="menu-list">
+	<li class="item network">Network</li>
+	<li class="item rules checked">Rules</li>
+	<li class="item values">Values</li>
+	<li class="separator"></li>
+	<li class="item direct">直接请求</li>
+	<li class="item proxy-config checked">whistle</li>
+	<li class="item proxy-config">aeproxy</li>
+	<li class="separator"></li>
+	<li class="item set-proxy">设置代理</li>
+	<li class="item about">About</li>
+</ul>
+<script src="js/jquery.js"></script>
+<script src="js/popup.js"></script>
+</body>
+</html>

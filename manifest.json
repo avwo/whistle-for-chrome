@@ -1,0 +1,30 @@
+{
+	"name": "whistle",
+	"manifest_version": 2,
+	"version": "0.0.0",
+	"description": "whistle的chrome插件，配合whistle(https://github.com/avwo/whistle)使用",
+	"icons": {
+		"16": "img/icon16.png",
+		"48": "img/icon48.png",
+		"128": "img/icon128.png"
+	},
+	"browser_action": {
+		"default_icon": {
+			"19": "img/icon19.png",
+			"38": "img/icon38.png"
+		},
+		"default_title": "whistle菜单选项",
+		"default_popup": "popup.html"
+	},
+	"options_page": "options.html",
+	"content_scripts": [
+		{
+			"matches": ["*://*/*"],
+			"js": ["js/jquery.js", "js/content.js"]
+		}
+	],
+	"background": {
+		"scripts": ["js/jquery.js", "js/background.js"]
+	},
+	"permissions": ["proxy", "storage", "tabs"]
+}
