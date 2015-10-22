@@ -5,20 +5,11 @@ $('#menu').on('click', 'li', function() {
 	var self = $(this);
 	if (self.hasClass('network')) {
 		bgWin.openWindow(PAGE_URL + '#network');
-		return;
-	} 
-	
-	if (self.hasClass('rules')) {
+	} else if (self.hasClass('rules')) {
 		bgWin.openWindow(PAGE_URL + '#rules');
-		return;
-	}
-	
-	if (self.hasClass('values')) {
+	} else if (self.hasClass('values')) {
 		bgWin.openWindow(PAGE_URL + '#values');
-		return;
-	}
-	
-	if (self.hasClass('direct')) {
+	} else if (self.hasClass('direct')) {
 		bgWin.setDirect();
 	} else if (self.hasClass('proxy-config')) {
 		
