@@ -1,3 +1,13 @@
+var proxies = {
+		whistle: {
+			host: '127.0.0.1',
+			port: 8899
+		},
+		aeproxy: {
+			host: '127.0.0.1',
+			port: 9527
+		}
+};
 
 function setProxy(host, port, callback) {
 	if (typeof port == 'function') {
@@ -33,6 +43,12 @@ function setProxy(host, port, callback) {
 				callback(false);
 			}
 		});
+	});
+}
+
+function getProxy(callback) {
+	chrome.proxy.settings.get(null, function(config) {
+		callback(config && config.value);
 	});
 }
 
