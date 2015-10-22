@@ -43,6 +43,9 @@ function setDirect() {
 	chrome.proxy.settings.set({value: {mode: 'direct'}});
 }
 
+function setSystem() {
+	chrome.proxy.settings.set({value: {mode: 'system'}});
+}
 
 function openOptions() {
     openWindow(chrome.extension.getURL('options.html'));

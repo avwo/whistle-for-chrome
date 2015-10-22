@@ -12,9 +12,11 @@ $('#menu').on('click', 'li', function() {
 	} else if (self.hasClass('direct')) {
 		bgWin.setDirect();
 	} else if (self.hasClass('proxy-config')) {
-		
+		bgWin.setProxy();
 	} else if (self.hasClass('set-proxy')) {
 		bgWin.openOptions();
+	} else if (self.hasClass('system')) {
+		bgWin.setSystem();
 	} else if (self.hasClass('about')) {
 		bgWin.openAbout();
 	}
