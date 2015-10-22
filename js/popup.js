@@ -1,14 +1,24 @@
 var bgWin = chrome.extension.getBackgroundPage();
+var PAGE_URL = 'http://local.whistlejs.com/from-chrome-plugins'
 
 $('#menu').on('click', 'li', function() {
 	var self = $(this);
 	if (self.hasClass('network')) {
-		bgWin.openWindow('http://local.whistlejs.com/#network');
-	} else if (self.hasClass('rules')) {
-		bgWin.openWindow('http://local.whistlejs.com/#rules');
-	} else if (self.hasClass('values')) {
-		bgWin.openWindow('http://local.whistlejs.com/#values');
-	} else if (self.hasClass('direct')) {
+		bgWin.openWindow(PAGE_URL + '#network');
+		return;
+	} 
+	
+	if (self.hasClass('rules')) {
+		bgWin.openWindow(PAGE_URL + '#rules');
+		return;
+	}
+	
+	if (self.hasClass('values')) {
+		bgWin.openWindow(PAGE_URL + '#values');
+		return;
+	}
+	
+	if (self.hasClass('direct')) {
 		bgWin.setDirect();
 	} else if (self.hasClass('proxy-config')) {
 		

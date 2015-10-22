@@ -77,7 +77,7 @@ function getUrl(url) {
 }
 
 function init() {
-	
+	setProxy();
 }
 
 init();
