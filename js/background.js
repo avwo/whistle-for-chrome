@@ -9,7 +9,7 @@ var proxies = {
 		}
 };
 
-function setProxy(host, port, callback) {
+function setProxy(host, port) {
 	if (typeof port == 'function') {
 		callback = port;
 		port = null;
@@ -23,27 +23,14 @@ function setProxy(host, port, callback) {
             host: host || '127.0.0.1',
             port: port || 8899
         };
-	var config = {
-		    mode: 'fixed_servers',
-		    rules: {
-		        proxyForHttp: proxyConfig,
-		        proxyForHttps: proxyConfig
-		    }
-		};
 
-	chrome.proxy.settings.set({value: config}, function() {
-		$.ajax({
-			url: 'http://' + config.host + ':' + config.port + '/cgi-bin/server-info',
-			cache: false,
-			timeout: 3000,
-			success: function() {
-				callback(true);
-			},
-			error: function() {
-				callback(false);
-			}
-		});
-	});
+	chrome.proxy.settings.set({value: {
+	    mode: 'fixed_servers',
+	    rules: {
+	        proxyForHttp: proxyConfig,
+	        proxyForHttps: proxyConfig
+	    }
+	}});
 }
 
 function getProxy(callback) {

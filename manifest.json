@@ -19,7 +19,7 @@
 	"options_page": "options.html",
 	"content_scripts": [
 		{
-			"matches": ["*://*/*"],
+			"matches": ["http://local.whistlejs.com/from-chrome-plugins"],
 			"js": ["js/jquery.js", "js/content.js"]
 		}
 	],
