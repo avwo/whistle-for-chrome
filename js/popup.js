@@ -10,11 +10,14 @@ $('#menu').on('click', 'li', function() {
 		bgWin.openWindow('http://local.whistlejs.com/#values');
 	} else if (self.hasClass('direct')) {
 		bgWin.setDirect();
+		window.close();
 	} else if (self.hasClass('proxy-config')) {
-		
+		window.close();
 	} else if (self.hasClass('set-proxy')) {
 		bgWin.openOptions();
+		window.close();
 	} else if (self.hasClass('about')) {
 		bgWin.openAbout();
+		window.close();
 	}
 });
