@@ -1,14 +1,54 @@
 var curProxy;
-var proxies = {
-		whistle: {
+var proxyList = [
+		{
+			name: 'whistle',
 			host: '127.0.0.1',
 			port: 8899
 		},
-		aeproxy: {
+		{	
+			name: 'aeproxy',
 			host: '127.0.0.1',
 			port: 9527
 		}
-};
+];
+
+try {
+	var _proxyList = JSON.parse(localStorage.proxyList);
+	if ($.isArray(_proxyList)) {
+		$.extend(true, proxyList, _proxyList);
+	}
+} catch(e) {}
+
+var proxies = {};
+
+proxyList = proxyList.filter(function(item) {
+	if (!item || !item.name) {
+		return false;
+	}
+	proxies[item.name] = item;
+	return true;
+});
+
+function setProxyValue(name, host, port) {
+	var item = proxies[name];
+	if (!item) {
+		proxies[name] = item = {
+				name: name,
+				host: host,
+				port: port
+		};
+		proxyList.push(item);
+	}
+	localStorage.proxyList = JSON.stringify(proxyList);
+}
+
+function hasProxyItem(name) {
+	
+}
+
+function removeProxyItem(name) {
+	
+}
 
 function detectProxyChange() {
 	getProxy(function(config) {
@@ -19,7 +59,7 @@ function detectProxyChange() {
 
 setTimeout(detectProxyChange, 1000);
 
-function setProxy(host, port) {
+function _setProxy(host, port) {
 	if (typeof port == 'function') {
 		callback = port;
 		port = null;
@@ -43,6 +83,11 @@ function setProxy(host, port) {
 		};
 	
 	chrome.proxy.settings.set({value: curProxy});
+}
+
+function setProxy(name) {
+	var item = name && proxies[name] || proxies.whistle;
+	_setProxy(item.host, item.port);
 }
 
 function getProxy(callback) {
