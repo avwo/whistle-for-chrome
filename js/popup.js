@@ -36,3 +36,19 @@ var menu = $('#menu').on('click', 'li', function() {
 	
 	window.close();
 });
+
+function init() {
+	menu.find('.whistle').removeClass('checked');
+	switch(bgWin.curPage) {
+		case 'rules':
+			menu.find('.rules').addClass('checked');
+			break;
+		case 'values':
+			menu.find('.values').addClass('checked');
+			break;
+		default:
+			menu.find('.network').addClass('checked');
+	}
+}
+
+init();
