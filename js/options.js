@@ -1,7 +1,7 @@
 var bgWin = chrome.extension.getBackgroundPage();
 var selectedName = localStorage.selectedProxyName || 'whistle';
 
-var proxyList = $('#proxyList').on('click', 'a', function() {
+var proxyList = $('#proxyList').on('click', 'a', function(e) {
 	var self = $(this);
 	var name = self.attr('data-name');
 	if (name == 'whistle' || name == 'aeproxy') {
@@ -12,6 +12,7 @@ var proxyList = $('#proxyList').on('click', 'a', function() {
 	localStorage.selectedProxyName = self.attr('data-name');
 	proxyList.find('a').removeClass('selected');
 	self.addClass('selected');
+	return false;
 });
 
 $('#createProxy').click(function() {
@@ -26,7 +27,7 @@ $('#createProxy').click(function() {
 		return;
 	}
 	
-	
+	return false;
 });
 
 proxyList.find('a[data-name="' + selectedName.replace(/(["\\])/g, '\\$1') +'"]').trigger('click');
