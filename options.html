@@ -8,33 +8,69 @@
 html, body {font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px;}
 html, body {}
 ul, ol, li {list-style: none;}
-.main {display: box; margin: 30px auto; width: 960px;}
+a.disabled {color: #ccc!important; background: #eee!important; cursor: default!important;}
+
+.btn:hover {color: #333; text-decoration: none;}
+.btn-danger {color: #fff; background-color: #d9534f; border-color: #d43f3a;}
+.btn-primary {color: #fff;  background-color: #337ab7; border-color: #2e6da4;}
+.btn {display: inline-block; padding: 6px 12px;  margin-bottom: 0; font-size: 14px; font-weight: 400; line-height: 1.42857143; 
+    text-align: center; white-space: nowrap; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation;
+    cursor: pointer; -webkit-user-select: none;  -moz-user-select: none; -ms-user-select: none; text-decoration: none;
+    user-select: none; background-image: none; border: 1px solid transparent; border-radius: 3px;
+}
+.btn-danger:hover {color: #fff; background-color: #c9302c; border-color: #ac2925;}
+.btn-primary:hover {color: #fff;  background-color: #286090; border-color: #204d74;}
+
+.main { margin: 50px auto 0; width: 666px;}
+.wrapper {display: -webkit-box; display: box;}
 .main>h1 {margin-bottom: 20px;}
 .main .left-con {width: 200px;}
 .main .right-con {flex: 1;}
 
-a.disabled {color: #ccc!important; background: #eee!important; cursor: default!important;}
-
 .left-con a {display: block; height: 36px; line-height: 36px; border: 1px solid #ddd; border-bottom: none; color: #000; text-decoration: none; padding: 0 10px; overflow: hidden; text-overflow: ellipsis;}
+.left-con a:hover {color: #333; background-color: #e6e6e6;}
+.left-con a.selected  {background-color: #337ab7; color: #fff;}
 .left-con a:first-child {border-top-left-radius: 3px; border-top-right-radius: 3px;}
 .left-con .create-proxy {outline: none; border: 1px solid #ddd; background: #fff; border-bottom: 1px solid #ddd; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;}
+
+.right-con {-webkit-box-flex: 1; box-flex: 1; margin-left: 20px;}
+.right-con input {height: 30px; line-height: 30px; border-radius: 2px; border: 1px solid #ddd; padding: 0 5px;}
+.right-con p {margin: 10px 0 30px;}
+.proxy-name {width: 440px;}
+.proxy-ip {width: 316px;}
+.proxy-port {width: 100px;}
+.proxy-separator {display: inline-block; width: 24px; height: 30px; line-height: 30px; text-align: center;}
+
+.action-bar {text-align: right;}
+.action-bar .btn {margin-left: 20px; width: 100px;}
 </style>
 </head>
 <body>
 <div class="main">
 	<h1>设置<strong>HTTP</strong>及<strong>HTTPS</strong>代理</h1>
-	<div class="left-con">
-		<div class="proxy-list">
-			<a href="javascript:;">whistle</a>
-			<a href="javascript:;">aeproxy</a>
-			<a href="javascript:;">other</a>
+	<div class="wrapper">
+		<div class="left-con">
+			<div class="proxy-list">
+				<a class="selected" href="javascript:;">whistle</a>
+				<a href="javascript:;">aeproxy</a>
+				<a href="javascript:;">other</a>
+			</div>
+			<a id="createProxy" class="create-proxy disabled" href="javascript:;">+Create</a>
 		</div>
-		<a id="createProxy" class="create-proxy disabled" href="javascript:;">+Create</a>
-	</div>
-	<div class="right-con">
-		
+		<div class="right-con">
+			<div>
+				<label>名称：</label>
+				<p><input type="text" class="proxy-name" placeholder="PROXY NAME" maxlength="36" /></p>
+				<label>HTTP与HTTPS代理(IP与端口)：</label>
+				<p><input type="text" class="proxy-ip" placeholder="PROXY IP" maxlength="256" /><span class="proxy-separator">:</span><input type="text" class="proxy-port" placeholder="PROXY PORT" maxlength="5" /></p>
+			</div>
+			<div class="action-bar">
+				<a id="removeProxy" class="btn btn-danger" href="javascript:;">删除</a><a id="enableProxy" class="btn btn-primary" href="javascript:;">启用</a>
+			</div>
+		</div>
 	</div>
 </div>
-
+<script src="js/jquery.js"></script>
+<script src="js/options.js"></script>
 </body>
 </html>
