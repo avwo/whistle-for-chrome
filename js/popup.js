@@ -20,7 +20,6 @@ var menu = $('#menu').on('click', 'li', function() {
 		} else if (self.hasClass('proxy-config')) {
 			bgWin.setProxy();
 		}
-		
 		menu.find('.proxy').removeClass('checked');
 		self.addClass('checked');
 	} else if (self.hasClass('set-proxy')) {

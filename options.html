@@ -3,8 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Proxy Settings</title>
+<style>
+* {margin: 0; padding: 0; box-sizing: border-box;}
+html, body {font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px;}
+html, body {}
+ul, ol, li {list-style: none;}
+.main {display: box; margin: 30px auto; width: 960px;}
+.main>h1 {margin-bottom: 20px;}
+.main .left-con {width: 200px;}
+.main .right-con {flex: 1;}
+
+a.disabled {color: #ccc!important; background: #eee!important; cursor: default!important;}
+
+.left-con a {display: block; height: 36px; line-height: 36px; border: 1px solid #ddd; border-bottom: none; color: #000; text-decoration: none; padding: 0 10px; overflow: hidden; text-overflow: ellipsis;}
+.left-con a:first-child {border-top-left-radius: 3px; border-top-right-radius: 3px;}
+.left-con .create-proxy {outline: none; border: 1px solid #ddd; background: #fff; border-bottom: 1px solid #ddd; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;}
+</style>
 </head>
 <body>
+<div class="main">
+	<h1>设置<strong>HTTP</strong>及<strong>HTTPS</strong>代理</h1>
+	<div class="left-con">
+		<div class="proxy-list">
+			<a href="javascript:;">whistle</a>
+			<a href="javascript:;">aeproxy</a>
+			<a href="javascript:;">other</a>
+		</div>
+		<a id="createProxy" class="create-proxy disabled" href="javascript:;">+Create</a>
+	</div>
+	<div class="right-con">
+		
+	</div>
+</div>
 
 </body>
 </html>
