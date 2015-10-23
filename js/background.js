@@ -1,4 +1,3 @@
-var curProxy;
 var proxyList = [
 		{
 			name: 'whistle',
@@ -50,15 +49,6 @@ function removeProxyItem(name) {
 	
 }
 
-function detectProxyChange() {
-	getProxy(function(config) {
-		curProxy = config;
-		setTimeout(detectProxyChange, 1000);
-	});
-}
-
-setTimeout(detectProxyChange, 1000);
-
 function _setProxy(host, port) {
 	if (typeof port == 'function') {
 		callback = port;
@@ -74,15 +64,13 @@ function _setProxy(host, port) {
             port: port || 8899
         };
 
-	curProxy = {
-		    mode: 'fixed_servers',
-		    rules: {
-		        proxyForHttp: proxyConfig,
-		        proxyForHttps: proxyConfig
-		    }
-		};
-	
-	chrome.proxy.settings.set({value: curProxy});
+	chrome.proxy.settings.set({value: {
+	    mode: 'fixed_servers',
+	    rules: {
+	        proxyForHttp: proxyConfig,
+	        proxyForHttps: proxyConfig
+	    }
+	}});
 }
 
 function setProxy(name) {

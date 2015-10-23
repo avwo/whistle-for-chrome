@@ -30,3 +30,10 @@ var menu = $('#menu').on('click', 'li', function() {
 	
 	window.close();
 });
+
+
+function init() {
+	
+}
+
+init();
