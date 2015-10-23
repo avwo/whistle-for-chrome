@@ -7,11 +7,11 @@ function getWhistlePageUrl(hashname) {
 $('#menu').on('click', 'li', function() {
 	var self = $(this);
 	if (self.hasClass('network')) {
-		bgWin.openWindow(getWhistlePageUrl('network'));
+		bgWin.openWindow(getWhistlePageUrl('network'), true);
 	} else if (self.hasClass('rules')) {
-		bgWin.openWindow(getWhistlePageUrl('rules'));
+		bgWin.openWindow(getWhistlePageUrl('rules'), true);
 	} else if (self.hasClass('values')) {
-		bgWin.openWindow(getWhistlePageUrl('values'));
+		bgWin.openWindow(getWhistlePageUrl('values'), true);
 	} else if (self.hasClass('direct')) {
 		bgWin.setDirect();
 	} else if (self.hasClass('proxy-config')) {
