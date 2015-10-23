@@ -19,12 +19,12 @@ $('#createProxy').click(function() {
 	var name = $.trim(prompt('请输入不超过36个字符的代理名称：'));
 	if (!name) {
 		alert('名称不能为空');
-		return;
+		return false;
 	}
 	
 	if (name.length > 36) {
 		alert('名称不能超过36个字符');
-		return;
+		return false;
 	}
 	
 	return false;
