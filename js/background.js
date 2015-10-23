@@ -1,3 +1,4 @@
+var curProxy;
 var proxies = {
 		whistle: {
 			host: '127.0.0.1',
@@ -8,6 +9,15 @@ var proxies = {
 			port: 9527
 		}
 };
+
+function detectProxyChange() {
+	getProxy(function(config) {
+		curProxy = config;
+		setTimeout(detectProxyChange, 1000);
+	});
+}
+
+setTimeout(detectProxyChange, 1000);
 
 function setProxy(host, port) {
 	if (typeof port == 'function') {
@@ -24,17 +34,19 @@ function setProxy(host, port) {
             port: port || 8899
         };
 
-	chrome.proxy.settings.set({value: {
-	    mode: 'fixed_servers',
-	    rules: {
-	        proxyForHttp: proxyConfig,
-	        proxyForHttps: proxyConfig
-	    }
-	}});
+	curProxy = {
+		    mode: 'fixed_servers',
+		    rules: {
+		        proxyForHttp: proxyConfig,
+		        proxyForHttps: proxyConfig
+		    }
+		};
+	
+	chrome.proxy.settings.set({value: curProxy});
 }
 
 function getProxy(callback) {
-	chrome.proxy.settings.get(null, function(config) {
+	chrome.proxy.settings.get({}, function(config) {
 		callback(config && config.value);
 	});
 }
