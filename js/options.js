@@ -3,6 +3,9 @@ var selectedName = localStorage.selectedProxyName || 'whistle';
 
 var proxyList = $('#proxyList').on('click', 'a', function(e) {
 	var self = $(this);
+	if (self.hasClass('selected')) {
+		return false;
+	}
 	var name = self.attr('data-name');
 	if (name == 'whistle' || name == 'aeproxy') {
 		$('#removeProxy').hide();
@@ -12,7 +15,13 @@ var proxyList = $('#proxyList').on('click', 'a', function(e) {
 	localStorage.selectedProxyName = self.attr('data-name');
 	proxyList.find('a').removeClass('selected');
 	self.addClass('selected');
+	$('#proxyName').select().focus();
 	return false;
+}).on('mousedown', 'a', function() {
+	var self = $(this);
+	if (self.hasClass('selected')) {
+		return false;
+	}
 });
 
 $('#createProxy').click(function() {
