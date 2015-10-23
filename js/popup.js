@@ -4,7 +4,7 @@ function getWhistlePageUrl(hashname) {
 	return 'http://local.whistlejs.com/#' + hashname;
 }
 
-var menu = $('#menu').on('click', 'li', function() {
+var menu = $('#menu').on('click', 'li', function(e, initing) {
 	var self = $(this);
 	if (self.hasClass('network')) {
 		bgWin.openWhistlePage('network');
@@ -18,7 +18,7 @@ var menu = $('#menu').on('click', 'li', function() {
 		} else if (self.hasClass('system')) {
 			bgWin.setSystem();
 		} else if (self.hasClass('proxy-config')) {
-			bgWin.setProxy();
+			bgWin.setProxy(self.attr('data-name'));
 		}
 		menu.find('.proxy').removeClass('checked');
 		self.addClass('checked');
@@ -28,11 +28,31 @@ var menu = $('#menu').on('click', 'li', function() {
 		bgWin.openAbout();
 	}
 	
-	window.close();
+	!initing && window.close();
 });
 
 
 function init() {
+	var system = menu.find('.system');
+	var selected;
+	bgWin.proxyList.forEach(function(item) {
+		var elem = $('<li class="item proxy proxy-config"></li>');
+		elem.attr('data-name', item.name);
+		elem.text(item.name);
+		elem.insertBefore(system);
+		if (!selected && item.selected) {
+			selected = true;
+			elem.trigger('click', true);
+		}
+	});
+	
+	if (!selected) {
+		if (bgWin.directProxy) {
+			system.trigger('click', true);
+		} else if (bgWin.systemProxy) {
+			menu.find('.direct').trigger('click', true);
+		}
+	}
 	
 }
 

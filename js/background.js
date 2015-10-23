@@ -11,6 +11,9 @@ var proxyList = [
 		}
 ];
 
+var systemProxy = localStorage.systemProxy;
+var directProxy = localStorage.directProxy;
+
 try {
 	var _proxyList = JSON.parse(localStorage.proxyList);
 	if ($.isArray(_proxyList)) {
@@ -38,15 +41,20 @@ function setProxyValue(name, host, port) {
 		};
 		proxyList.push(item);
 	}
-	localStorage.proxyList = JSON.stringify(proxyList);
+	storeProxy();
 }
 
 function hasProxyItem(name) {
-	
+	return proxies[name];
 }
 
 function removeProxyItem(name) {
-	
+	var item = proxies[name];
+	if (!item) {
+		return;
+	}
+	delete proxies[name];
+	proxyList.splice(proxyList.indexOf(item), 1);
 }
 
 function _setProxy(host, port) {
@@ -75,22 +83,38 @@ function _setProxy(host, port) {
 
 function setProxy(name) {
 	var item = name && proxies[name] || proxies.whistle;
+	_clearSelection();
+	item.selected = true;
 	_setProxy(item.host, item.port);
-}
-
-function getProxy(callback) {
-	chrome.proxy.settings.get({}, function(config) {
-		callback(config && config.value);
-	});
 }
 
 function setDirect() {
 	chrome.proxy.settings.set({value: {mode: 'direct'}});
+	_clearSelection();
+	localStorage.directProxy = directProxy = 1;
 }
 
 function setSystem() {
 	chrome.proxy.settings.set({value: {mode: 'system'}});
+	_clearSelection();
+	localStorage.systemProxy = systemProxy = 1;
 }
+
+function _clearSelection() {
+	localStorage.removeItem('directProxy');
+	localStorage.removeItem('systemProxy');
+	directProxy = systemProxy = null;
+	proxyList.forEach(function(item) {
+		item.selected = false;
+	});
+	setTimeout(storeProxy, 0);
+}
+
+function storeProxy() {
+	localStorage.proxyList = JSON.stringify(proxyList);
+}
+
+setInterval(storeProxy, 3000);
 
 function openWhistlePage(name) {
 	openWindow(getWhistlePageUrl(name), true);
