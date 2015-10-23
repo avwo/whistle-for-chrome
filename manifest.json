@@ -17,12 +17,6 @@
 		"default_popup": "popup.html"
 	},
 	"options_page": "options.html",
-	"content_scripts": [
-		{
-			"matches": ["http://local.whistlejs.com/"],
-			"js": ["js/jquery.js", "js/content.js"]
-		}
-	],
 	"background": {
 		"scripts": ["js/jquery.js", "js/background.js"]
 	},
