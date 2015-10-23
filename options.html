@@ -50,10 +50,10 @@ a.disabled {color: #ccc!important; background: #eee!important; cursor: default!i
 	<h1>设置<strong>HTTP</strong>及<strong>HTTPS</strong>代理</h1>
 	<div class="wrapper">
 		<div class="left-con">
-			<div class="proxy-list">
-				<a class="selected" href="javascript:;">whistle</a>
-				<a href="javascript:;">aeproxy</a>
-				<a href="javascript:;">other</a>
+			<div id="proxyList" class="proxy-list">
+				<a data-name="whistle" href="javascript:;">whistle</a>
+				<a data-name="aeproxy" href="javascript:;">aeproxy</a>
+				<a data-name="other" href="javascript:;">other</a>
 			</div>
 			<a id="createProxy" class="create-proxy disabled" href="javascript:;">+Create</a>
 		</div>
