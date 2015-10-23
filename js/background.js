@@ -60,7 +60,11 @@ function openWindow(url, pinned) {
         for (var i = 0, len = tabs.length; i < len; i++) {
         	var tab = tabs[i];
             if (getUrl(tab.url) == getUrl(url)) {
-                chrome.tabs.update(tab.id, { selected:true, url: url});
+            	var options = {selected: true};
+            	if (tab.url != url) {
+            		options.url = url;
+            	}
+                chrome.tabs.update(tab.id, options);
                 return;
             }
         }
