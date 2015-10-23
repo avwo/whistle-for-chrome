@@ -91,8 +91,8 @@ function setSystem() {
 }
 
 function openWhistlePage(name) {
-	curPage = getWhistlePageUrl(name);
-	openWindow(curPage, true);
+	curPage = name;
+	openWindow(getWhistlePageUrl(name), true);
 }
 
 function getWhistlePageUrl(name) {
