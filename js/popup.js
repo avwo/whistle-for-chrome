@@ -6,17 +6,12 @@ function getWhistlePageUrl(hashname) {
 
 var menu = $('#menu').on('click', 'li', function() {
 	var self = $(this);
-	if (self.hasClass('whistle')) {
-		if (self.hasClass('network')) {
-			bgWin.openWhistlePage('network');
-		} else if (self.hasClass('rules')) {
-			bgWin.openWhistlePage('rules');
-		} else if (self.hasClass('values')) {
-			bgWin.openWhistlePage('values');
-		}
-		
-		menu.find('.whistle').removeClass('checked');
-		self.addClass('checked');
+	if (self.hasClass('network')) {
+		bgWin.openWhistlePage('network');
+	} else if (self.hasClass('rules')) {
+		bgWin.openWhistlePage('rules');
+	} else if (self.hasClass('values')) {
+		bgWin.openWhistlePage('values');
 	} else if (self.hasClass('proxy')) {
 		if (self.hasClass('direct')) {
 			bgWin.setDirect();
@@ -36,19 +31,3 @@ var menu = $('#menu').on('click', 'li', function() {
 	
 	window.close();
 });
-
-function init() {
-	menu.find('.whistle').removeClass('checked');
-	switch(bgWin.curPage) {
-		case 'rules':
-			menu.find('.rules').addClass('checked');
-			break;
-		case 'values':
-			menu.find('.values').addClass('checked');
-			break;
-		default:
-			menu.find('.network').addClass('checked');
-	}
-}
-
-init();

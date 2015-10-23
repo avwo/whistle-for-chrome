@@ -1,4 +1,4 @@
-var curProxy, curPage = 'network';
+var curProxy;
 var proxies = {
 		whistle: {
 			host: '127.0.0.1',
@@ -9,37 +9,6 @@ var proxies = {
 			port: 9527
 		}
 };
-
-chrome.tabs.getAllInWindow(null, function (tabs) {
-    for (var i = 0, len = tabs.length; i < len; i++) {
-    	var tab = tabs[i];
-        if (getUrl(tab.url) == 'http://local.whistlejs.com/') {
-        	var hash = tab.url.indexOf('#');
-        	if (hash != -1) {
-        		curPage = getPageName(tab.url.substring(hash + 1));
-        	}
-            return;
-        }
-    }
-});
-
-chrome.runtime.onMessage.addListener(function(msg) {
-	if (msg && msg.eventType == 'hashchange') {
-		curPage = getPageName(msg.value);
-	}
-});
-
-function getPageName(hash) {
-	if (/rules/.test(hash)) {
-		return 'rules';
-	}
-	
-	if (/values/.test(hash)) {
-		return 'values';
-	}
-	
-	return 'network';
-}
 
 function detectProxyChange() {
 	getProxy(function(config) {
@@ -91,7 +60,6 @@ function setSystem() {
 }
 
 function openWhistlePage(name) {
-	curPage = name;
 	openWindow(getWhistlePageUrl(name), true);
 }
 
