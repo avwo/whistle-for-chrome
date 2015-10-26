@@ -4,6 +4,10 @@ var proxyName = $('#proxyName');
 var proxyHost = $('#proxyHost');
 var proxyPort = $('#proxyPort');
 
+function existsName(name) {
+	return proxyList.find('a[data-name="' + name.replace(/(["\\])/g, '\\$1') +'"]').length;
+}
+
 proxyName.blur(function() {
 	var name = proxyName.val().trim();
 	var elem = proxyList.find('a.selected');
@@ -17,7 +21,7 @@ proxyName.blur(function() {
 	if (name == oldName) {
 		return;
 	}
-	if (proxyList.find('a[data-name="' + name.replace(/(["\\])/g, '\\$1') +'"]').length) {
+	if (existsName(name)) {
 		alert('`' + name + '`已经存在');
 		proxyName.select().focus();
 		return;
