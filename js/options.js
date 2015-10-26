@@ -8,7 +8,13 @@ proxyName.blur(function() {
 	var name = proxyName.val().trim();
 	var elem = proxyList.find('a.selected');
 	var oldName = elem.attr('data-name');
-	if (!name || name == oldName) {
+	if (!name) {
+		alert('名称不能为空');
+		proxyName.select().focus();
+		return;
+	}
+	
+	if (name == oldName) {
 		return;
 	}
 	if (proxyList.find('a[data-name="' + name.replace(/(["\\])/g, '\\$1') +'"]').length) {
