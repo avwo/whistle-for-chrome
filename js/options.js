@@ -9,9 +9,12 @@ function existsName(name) {
 }
 
 proxyName.blur(function() {
+	var oldName = elem.attr('data-name');
+	if (oldName == 'whistle') {
+		return;
+	}
 	var name = proxyName.val().trim();
 	var elem = proxyList.find('a.selected');
-	var oldName = elem.attr('data-name');
 	if (!name) {
 		alert('名称不能为空');
 		proxyName.select().focus();
