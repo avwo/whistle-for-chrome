@@ -87,6 +87,26 @@ var proxy = (function() {
 		store();
 	}
 	
+	function save(name, host, port) {
+		if (!name) {
+			return;
+		}
+		
+		var item = proxies[name];
+		if (item) {
+			item.host = host;
+			item.port = port;
+		} else {
+			item = {
+					name: name,
+					host: host,
+					port: port
+			};
+			list.push(item);
+		}
+		store();
+	}
+	
 	return {
 		setDirect: function(callback) {
 			chrome.proxy.settings.set({value: {mode: 'direct'}}, callback);
@@ -109,32 +129,16 @@ var proxy = (function() {
 			list.splice(list.indexOf(item), 1);
 			store();
 		},
+		saveProxy: save,
 		setProxy: function(name, host, port) {
-			if (!name) {
-				return;
-			}
-			
-			var item = proxies[name];
-			if (item) {
-				item.host = host;
-				item.port = port;
-			} else {
-				item = {
-						name: name,
-						host: host,
-						port: port
-				};
-				list.push(item);
-			}
+			save(name);
 			enable(name);
 		},
 		enableProxy: enable,
 		getProxy: function(name) {
-			
 			return proxies[name];
 		},
 		getProxyConfig: function() {
-			
 			return proxyConfig; //只是内部使用，不用副本
 		}
 	};
