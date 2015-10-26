@@ -40,6 +40,7 @@ function init() {
 	proxyConfig.list.forEach(function(item) {
 		var elem = $('<li class="item proxy proxy-config"></li>');
 		elem.attr('data-name', item.name);
+		elem.attr('title', (item.host || '127.0.0.1') + ':' + (item.port || 8899));
 		elem.text(item.name);
 		elem.insertBefore(system);
 		item.active && elem.trigger('click', true);
