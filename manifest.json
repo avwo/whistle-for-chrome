@@ -20,5 +20,5 @@
 	"background": {
 		"scripts": ["js/jquery.js", "js/background.js"]
 	},
-	"permissions": ["proxy", "storage", "tabs", "<all_urls>"]
+	"permissions": ["proxy", "storage", "tabs", "<all_urls>", "http://*/*", "https://*/*"]
 }

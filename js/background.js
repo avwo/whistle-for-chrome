@@ -56,17 +56,21 @@ var proxy = (function() {
 	}
 	
 	function active(host, port, callback) {
-		var config = {
-	            scheme: 'http',
-	            host: host || '127.0.0.1',
-	            port: port || 8899
-	        };
-
+		host = host || '127.0.0.1';
+		port = port || 8899;
 		chrome.proxy.settings.set({value: {
 		    mode: 'fixed_servers',
 		    rules: {
-		        proxyForHttp: config,
-		        proxyForHttps: config
+		        proxyForHttp: {
+		            scheme: 'http',
+		            host: host,
+		            port: port
+		        },
+		        proxyForHttps: {
+		            scheme: 'http',
+		            host: host,
+		            port: port
+		        }
 		    }
 		}}, callback);
 
@@ -184,7 +188,16 @@ function getUrl(url) {
 }
 
 function init() {
-	proxy.enableProxy('whistle');
+	var config = proxy.getProxyConfig();
+	if (config.direct) {
+		proxy.setDirect();
+	} else if(config.system) {
+		proxy.setSystem();
+	} else {
+		config.list.forEach(function(item) {
+			item.active && proxy.enableProxy(item.name);
+		});
+	}
 }
 
 init();
