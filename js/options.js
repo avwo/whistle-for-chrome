@@ -102,11 +102,27 @@ $('#createProxy').click(function() {
 $('#removeProxy').click(function() {
 	var elem = proxyList.find('a.selected');
 	var name = elem.attr('data-name');
-	if (!confirm('确定删除`' + name + '`')) {
-		return;
+	if (name == 'whistle') {
+		return false;
 	}
 	
+	if (!confirm('确定删除`' + name + '`')) {
+		return false;
+	}
 	
+	proxy.removeProxy(name);
+	var next = elem.next('a');
+	if (!next.length) {
+		next = elem.prev('a');
+	}
+	elem.remove();
+	next.trigger('click');
+	return false;
+});
+
+$('#enableProxy').click(function() {
+	proxy.enableProxy(proxyList.find('a.selected').attr('data-name'));
+	return false;
 });
 
 function createProxyElem(name, host, port) {

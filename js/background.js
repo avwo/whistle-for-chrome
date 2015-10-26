@@ -100,7 +100,7 @@ var proxy = (function() {
 			item.host = host;
 			item.port = port;
 		} else {
-			item = {
+			proxies[name] = item = {
 					name: name,
 					host: host,
 					port: port
@@ -143,11 +143,12 @@ var proxy = (function() {
 		removeProxy: function(name) {
 			var item = proxies[name];
 			if (!item) {
-				return;
+				return false;
 			}
 			
 			list.splice(list.indexOf(item), 1);
 			store();
+			return true;
 		},
 		saveProxy: save,
 		setProxy: function(name, host, port) {
