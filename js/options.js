@@ -34,7 +34,6 @@ var proxyList = $('#proxyList').on('click', 'a', function(e) {
 		proxyHost.val(self.attr('data-host') || '');
 		proxyPort.val(self.attr('data-port') || '');
 		self.addClass('selected');
-		proxyName.select().focus();
 		if (name == 'whistle') {
 			$('#removeProxy').hide();
 			proxyName.prop('disabled', true);
@@ -42,6 +41,9 @@ var proxyList = $('#proxyList').on('click', 'a', function(e) {
 			$('#removeProxy').show();
 			proxyName.prop('disabled', false);
 		}
+		setTimeout(function() {
+			proxyName.select().focus();
+		}, 0);
 	}
 	
 	return false;
