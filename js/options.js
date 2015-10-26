@@ -9,12 +9,12 @@ function existsName(name) {
 }
 
 proxyName.blur(function() {
+	var elem = proxyList.find('a.selected');
 	var oldName = elem.attr('data-name');
 	if (oldName == 'whistle') {
 		return;
 	}
 	var name = proxyName.val().trim();
-	var elem = proxyList.find('a.selected');
 	if (!name) {
 		alert('名称不能为空');
 		proxyName.select().focus();
@@ -97,6 +97,16 @@ $('#createProxy').click(function() {
 	proxy.setProxy(name);
 	createProxyElem(name).appendTo(proxyList).trigger('click');
 	return false;
+});
+
+$('#removeProxy').click(function() {
+	var elem = proxyList.find('a.selected');
+	var name = elem.attr('data-name');
+	if (!confirm('确定删除`' + name + '`')) {
+		return;
+	}
+	
+	
 });
 
 function createProxyElem(name, host, port) {
