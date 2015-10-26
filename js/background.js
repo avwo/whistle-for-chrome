@@ -72,6 +72,17 @@ var proxy = (function() {
 
 	}
 	
+	function enable(name, callback) {
+		var item = proxies[name];
+		if (!item) {
+			return;
+		}
+		cleartSelection();
+		item.active = true;
+		active(item.host, item.port, callback);
+		store();
+	}
+	
 	return {
 		setDirect: function(callback) {
 			chrome.proxy.settings.set({value: {mode: 'direct'}}, callback);
@@ -111,17 +122,9 @@ var proxy = (function() {
 				};
 				list.push(item);
 			}
-			store();
+			enable(name);
 		},
-		enableProxy: function(name) {
-			var item = proxies[name];
-			if (item) {
-				cleartSelection();
-				item.active = true;
-				active(item.host, item.port);
-				store();
-			}
-		},
+		enableProxy: enable,
 		getProxy: function(name) {
 			
 			return proxies[name];
