@@ -34,6 +34,16 @@ proxyName.blur(function() {
 	}
 });
 
+proxyHost.blur(function() {
+	var elem = proxyList.find('a.selected');
+	proxy.save(elem.attr('data-name'), proxyHost.val(), elem.attr('data-name'));
+});
+
+proxyPort.blur(function() {
+	
+});
+
+
 var proxyList = $('#proxyList').on('click', 'a', function(e) {
 	var self = $(this);
 	if (!self.hasClass('selected')) {
