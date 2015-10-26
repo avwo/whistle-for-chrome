@@ -21,7 +21,7 @@ var proxy = (function() {
 		list = proxyConfig.list = [];
 	}
 	
-	if (localStorage.init) {
+	if (!localStorage.init) {
 		list.push({
 			name: 'whistle',
 			host: '127.0.0.1',

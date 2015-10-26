@@ -1,5 +1,5 @@
 var bgWin = chrome.extension.getBackgroundPage();
-var selectedName = localStorage.selectedProxyName || 'whistle';
+var selectedName = 'whistle';
 var WARN = '\n(不要勾选下面可能出现的`禁止此页再显示对话框`)';
 
 var proxyList = $('#proxyList').on('click', 'a', function(e) {
@@ -13,7 +13,7 @@ var proxyList = $('#proxyList').on('click', 'a', function(e) {
 	} else {
 		$('#removeProxy').show();
 	}
-	localStorage.selectedProxyName = self.attr('data-name');
+	//localStorage.selectedProxyName = self.attr('data-name');
 	proxyList.find('a').removeClass('selected');
 	self.addClass('selected');
 	$('#proxyName').select().focus();
