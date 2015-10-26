@@ -1,4 +1,5 @@
 var bgWin = chrome.extension.getBackgroundPage();
+var proxy = bgWin.proxy;
 
 function getWhistlePageUrl(hashname) {
 	return 'http://local.whistlejs.com/#' + hashname;
@@ -14,11 +15,11 @@ var menu = $('#menu').on('click', 'li', function(e, initing) {
 		bgWin.openWhistlePage('values');
 	} else if (self.hasClass('proxy')) {
 		if (self.hasClass('direct')) {
-			bgWin.setDirect();
+			proxy.setDirect();
 		} else if (self.hasClass('system')) {
-			bgWin.setSystem();
+			proxy.setSystem();
 		} else if (self.hasClass('proxy-config')) {
-			bgWin.setProxy(self.attr('data-name'));
+			proxy.setProxy(self.attr('data-name'));
 		}
 		menu.find('.proxy').removeClass('checked');
 		self.addClass('checked');
@@ -34,26 +35,19 @@ var menu = $('#menu').on('click', 'li', function(e, initing) {
 
 function init() {
 	var system = menu.find('.system');
-	var selected;
-	bgWin.proxyList.forEach(function(item) {
+	proxy.list.forEach(function(item) {
 		var elem = $('<li class="item proxy proxy-config"></li>');
 		elem.attr('data-name', item.name);
 		elem.text(item.name);
 		elem.insertBefore(system);
-		if (!selected && item.selected) {
-			selected = true;
-			elem.trigger('click', true);
-		}
+		item.active && elem.trigger('click', true);
 	});
 	
-	if (!selected) {
-		if (bgWin.directProxy) {
-			system.trigger('click', true);
-		} else if (bgWin.systemProxy) {
-			menu.find('.direct').trigger('click', true);
-		}
+	if (proxy.direct) {
+		menu.find('.direct').trigger('click', true);
+	} else if (proxy.system) {
+		system.trigger('click', true);
 	}
-	
 }
 
 init();

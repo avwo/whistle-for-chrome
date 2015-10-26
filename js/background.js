@@ -1,120 +1,137 @@
-var proxyList = [
-		{
+
+var util = (function() {
+	
+	return {
+		parseJSON: function(str) {
+			try {
+				return JSON.parse(str) || {};
+			} catch(e) {}
+			
+			return {};
+		}
+	};
+})();
+
+var proxy = (function() {
+	var proxyConfig = util.parseJSON(localStorage.proxyConfig);
+	var proxies = {};
+	var list;
+	
+	if (!$.isArray(proxyConfig.list)) {
+		list = proxyConfig.list = [];
+	}
+	
+	if (localStorage.init) {
+		list.push({
 			name: 'whistle',
 			host: '127.0.0.1',
 			port: 8899
-		},
-		{	
+		}, {
 			name: 'aeproxy',
 			host: '127.0.0.1',
 			port: 9527
-		}
-];
-
-var systemProxy = localStorage.systemProxy;
-var directProxy = localStorage.directProxy;
-
-try {
-	var _proxyList = JSON.parse(localStorage.proxyList);
-	if ($.isArray(_proxyList)) {
-		$.extend(true, proxyList, _proxyList);
-	}
-} catch(e) {}
-
-var proxies = {};
-
-proxyList = proxyList.filter(function(item) {
-	if (!item || !item.name) {
-		return false;
-	}
-	proxies[item.name] = item;
-	return true;
-});
-
-function setProxyValue(name, host, port) {
-	var item = proxies[name];
-	if (!item) {
-		proxies[name] = item = {
-				name: name,
-				host: host,
-				port: port
-		};
-		proxyList.push(item);
-	}
-	storeProxy();
-}
-
-function hasProxyItem(name) {
-	return proxies[name];
-}
-
-function removeProxyItem(name) {
-	var item = proxies[name];
-	if (!item) {
-		return;
-	}
-	delete proxies[name];
-	proxyList.splice(proxyList.indexOf(item), 1);
-}
-
-function _setProxy(host, port) {
-	if (typeof port == 'function') {
-		callback = port;
-		port = null;
-	} if (typeof host == 'function') {
-		callback = host;
-		host = null;
+		});
+		localStorage.init = true;
+		store();
 	}
 	
-	var proxyConfig = {
-            scheme: 'http',
-            host: host || '127.0.0.1',
-            port: port || 8899
-        };
-
-	chrome.proxy.settings.set({value: {
-	    mode: 'fixed_servers',
-	    rules: {
-	        proxyForHttp: proxyConfig,
-	        proxyForHttps: proxyConfig
-	    }
-	}});
-}
-
-function setProxy(name) {
-	var item = name && proxies[name] || proxies.whistle;
-	_clearSelection();
-	item.selected = true;
-	_setProxy(item.host, item.port);
-}
-
-function setDirect() {
-	chrome.proxy.settings.set({value: {mode: 'direct'}});
-	_clearSelection();
-	localStorage.directProxy = directProxy = 1;
-}
-
-function setSystem() {
-	chrome.proxy.settings.set({value: {mode: 'system'}});
-	_clearSelection();
-	localStorage.systemProxy = systemProxy = 1;
-}
-
-function _clearSelection() {
-	localStorage.removeItem('directProxy');
-	localStorage.removeItem('systemProxy');
-	directProxy = systemProxy = null;
-	proxyList.forEach(function(item) {
-		item.selected = false;
+	list = proxyConfig.list = proxyConfig.list.filter(function(item) {
+		if (!item || !item.name) {
+			return false;
+		}
+		proxies[item.name] = item;
+		return true;
 	});
-	setTimeout(storeProxy, 0);
-}
+	
+	function store() {
+		localStorage.proxyConfig = JSON.stringify(proxyConfig);
+	}
+	
+	function cleartSelection() {
+		proxyConfig.system = false;
+		proxyConfig.direct = false;
+		list.forEach(function(item) {
+			item.active = false;
+		});
+	}
+	
+	function active(host, port, callback) {
+		var config = {
+	            scheme: 'http',
+	            host: host || '127.0.0.1',
+	            port: port || 8899
+	        };
 
-function storeProxy() {
-	localStorage.proxyList = JSON.stringify(proxyList);
-}
+		chrome.proxy.settings.set({value: {
+		    mode: 'fixed_servers',
+		    rules: {
+		        proxyForHttp: config,
+		        proxyForHttps: config
+		    }
+		}}, callback);
 
-setInterval(storeProxy, 3000);
+	}
+	
+	return {
+		setDirect: function(callback) {
+			chrome.proxy.settings.set({value: {mode: 'direct'}}, callback);
+			cleartSelection();
+			proxyConfig.direct = false;
+			store();
+		},
+		setSystem: function(callback) {
+			chrome.proxy.settings.set({value: {mode: 'system'}}, callback);
+			cleartSelection();
+			proxyConfig.system = true;
+			store();
+		},
+		removeProxy: function(name) {
+			var item = proxies[name];
+			if (!item) {
+				return;
+			}
+			
+			list.splice(list.indexOf(item), 1);
+			store();
+		},
+		setProxy: function(name, host, port) {
+			if (!name) {
+				return;
+			}
+			
+			var item = proxies[name];
+			if (item) {
+				item.host = host;
+				item.port = port;
+			} else {
+				item = {
+						name: name,
+						host: host,
+						port: port
+				};
+				list.push(item);
+			}
+			store();
+		},
+		enableProxy: function(name) {
+			var item = proxies[name];
+			if (item) {
+				cleartSelection();
+				item.active = true;
+				active(item.host, item.port);
+				store();
+			}
+		},
+		getProxy: function(name) {
+			
+			return proxies[name];
+		},
+		getProxyConfig: function() {
+			
+			return proxyConfig; //只是内部使用，不用副本
+		}
+	};
+})();
 
 function openWhistlePage(name) {
 	openWindow(getWhistlePageUrl(name), true);
