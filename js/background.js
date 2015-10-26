@@ -87,7 +87,7 @@ var proxy = (function() {
 		setDirect: function(callback) {
 			chrome.proxy.settings.set({value: {mode: 'direct'}}, callback);
 			cleartSelection();
-			proxyConfig.direct = false;
+			proxyConfig.direct = true;
 			store();
 		},
 		setSystem: function(callback) {
