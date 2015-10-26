@@ -84,6 +84,9 @@ var proxy = (function() {
 		cleartSelection();
 		item.active = true;
 		active(item.host, item.port, callback);
+		chrome.browserAction.setTitle({
+			title: name + '(' + (item.host || '127.0.0.1') + ':' + (item.port || 8899) + ')'
+		});
 		store();
 	}
 	
@@ -124,12 +127,18 @@ var proxy = (function() {
 			cleartSelection();
 			proxyConfig.direct = true;
 			store();
+			chrome.browserAction.setTitle({
+				title: '直接请求'
+			});
 		},
 		setSystem: function(callback) {
 			chrome.proxy.settings.set({value: {mode: 'system'}}, callback);
 			cleartSelection();
 			proxyConfig.system = true;
 			store();
+			chrome.browserAction.setTitle({
+				title: '系统代理'
+			});
 		},
 		removeProxy: function(name) {
 			var item = proxies[name];
