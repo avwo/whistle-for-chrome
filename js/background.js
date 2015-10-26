@@ -108,7 +108,7 @@ var proxy = (function() {
 	}
 	
 	function rename(name, newName) {
-		if (!name || !newName || proxies[name] || name == newName) {
+		if (!name || !newName || !proxies[name] || name == newName) {
 			return;
 		}
 		var item = proxies[name];

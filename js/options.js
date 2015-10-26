@@ -1,5 +1,28 @@
 var win = chrome.extension.getBackgroundPage();
 var proxy = win.proxy;
+var proxyName = $('#proxyName');
+var proxyHost = $('#proxyHost');
+var proxyPort = $('#proxyPort');
+
+proxyName.blur(function() {
+	var name = proxyName.val().trim();
+	var elem = proxyList.find('a.selected');
+	var oldName = elem.attr('data-name');
+	if (!name || name == oldName) {
+		return;
+	}
+	if (proxyList.find('a[data-name="' + name.replace(/(["\\])/g, '\\$1') +'"]').length) {
+		alert('`' + name + '`已经存在');
+		proxyName.select().focus();
+		return;
+	}
+	proxy.renameProxy(oldName, name);
+	elem.attr('data-name', name);
+	elem.text(name);
+	if (localStorage.activeProxyName == oldName) {
+		localStorage.activeProxyName = name;
+	}
+});
 
 var proxyList = $('#proxyList').on('click', 'a', function(e) {
 	var self = $(this);
@@ -7,17 +30,17 @@ var proxyList = $('#proxyList').on('click', 'a', function(e) {
 		proxyList.find('a').removeClass('selected');
 		var name = self.attr('data-name');
 		localStorage.activeProxyName = name;
-		$('#proxyName').val(name || '');
-		$('#proxyHost').val(self.attr('data-host') || '');
-		$('#proxyPort').val(self.attr('data-port') || '');
+		proxyName.val(name || '');
+		proxyHost.val(self.attr('data-host') || '');
+		proxyPort.val(self.attr('data-port') || '');
 		self.addClass('selected');
-		$('#proxyName').select().focus();
+		proxyName.select().focus();
 		if (name == 'whistle') {
 			$('#removeProxy').hide();
-			$('#proxyName').prop('disabled', true);
+			proxyName.prop('disabled', true);
 		} else {
 			$('#removeProxy').show();
-			$('#proxyName').prop('disabled', false);
+			proxyName.prop('disabled', false);
 		}
 	}
 	
