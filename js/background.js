@@ -57,7 +57,7 @@ var proxy = (function() {
 	
 	function active(host, port, callback) {
 		host = host || '127.0.0.1';
-		port = port || 8899;
+		port = parseInt(port) || 8899;
 		chrome.proxy.settings.set({value: {
 		    mode: 'fixed_servers',
 		    rules: {

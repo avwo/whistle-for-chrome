@@ -36,11 +36,17 @@ proxyName.blur(function() {
 
 proxyHost.blur(function() {
 	var elem = proxyList.find('a.selected');
-	proxy.save(elem.attr('data-name'), proxyHost.val(), elem.attr('data-name'));
+	var host = proxyHost.val().trim();
+	elem.attr('data-host', host);
+	proxy.saveProxy(elem.attr('data-name'), host, elem.attr('data-port'));
 });
 
 proxyPort.blur(function() {
-	
+	var port = proxyPort.val().trim();
+	port = parseInt(port) || 0;
+	var elem = proxyList.find('a.selected');
+	elem.attr('data-port', port);
+	proxy.saveProxy(elem.attr('data-name'), elem.attr('data-host'), port);
 });
 
 
