@@ -20,7 +20,8 @@ var menu = $('#menu').on('click', 'li', function(e, initing) {
 		} else if (self.hasClass('system')) {
 			proxy.setSystem();
 		} else if (self.hasClass('proxy-config')) {
-			proxy.enableProxy(self.attr('data-name'));
+			var name = self.attr('data-name');
+			proxy.enableProxy(name);
 		}
 		menu.find('.proxy').removeClass('checked');
 		self.addClass('checked');

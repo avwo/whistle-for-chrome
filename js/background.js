@@ -184,7 +184,7 @@ function getUrl(url) {
 }
 
 function init() {
-	setProxy();
+	proxy.enableProxy('whistle');
 }
 
 init();
