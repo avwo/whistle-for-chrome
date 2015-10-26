@@ -4,9 +4,9 @@
 
 # 安装
 
-1. 下载whistle插件：[]()
+1. 下载whistle插件：[whistle.crx]()
 2. 打开页面：[chrome://extensions](chrome://extensions)
-3. 把下载的whistle.crx文件拖到[chrome://extensions](chrome://extensions)，默认安装即可
+3. 把下载的 **whistle.crx** 文件拖到[chrome://extensions](chrome://extensions)，默认安装即可
 
 
 # 功能
