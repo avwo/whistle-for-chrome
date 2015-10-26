@@ -107,6 +107,17 @@ var proxy = (function() {
 		store();
 	}
 	
+	function rename(name, newName) {
+		if (!name || !newName || proxies[name] || name == newName) {
+			return;
+		}
+		var item = proxies[name];
+		delete proxies[name];
+		item.name = newName;
+		proxies[newName] = item;
+		store();
+	}
+	
 	return {
 		setDirect: function(callback) {
 			chrome.proxy.settings.set({value: {mode: 'direct'}}, callback);
@@ -134,6 +145,7 @@ var proxy = (function() {
 			save(name);
 			enable(name);
 		},
+		renameProxy: rename,
 		enableProxy: enable,
 		getProxy: function(name) {
 			return proxies[name];
