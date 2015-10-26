@@ -84,7 +84,10 @@ var proxyList = $('#proxyList').on('click', 'a', function(e) {
 });
 
 var proxyList = $('#proxyList');
-$('#createProxy').click(function() {
+var createProxyBtn = $('#createProxy').click(function() {
+	if (createProxyBtn.hasClass('disabled')) {
+		return;
+	}
 	var name = $.trim(prompt('请输入不超过36个字符的代理名称：'));
 	if (!name || !(name = name.trim())) {
 		return false;
@@ -96,6 +99,7 @@ $('#createProxy').click(function() {
 	}
 	proxy.setProxy(name);
 	createProxyElem(name).appendTo(proxyList).trigger('click');
+	proxyList.find('a').length > 6 && createProxyBtn.addClass('disabled');
 	return false;
 });
 
@@ -117,6 +121,7 @@ $('#removeProxy').click(function() {
 	}
 	elem.remove();
 	next.trigger('click');
+	createProxyBtn.removeClass('disabled');
 	return false;
 });
 
@@ -144,6 +149,7 @@ function init() {
 	
 	var activeName = localStorage.activeProxyName || 'whistle';
 	proxyList.find('a[data-name="' + activeName.replace(/(["\\])/g, '\\$1') +'"]').trigger('click');
+	proxyList.find('a').length > 6 && createProxyBtn.addClass('disabled');
 }
 
 init();
