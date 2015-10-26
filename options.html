@@ -37,7 +37,7 @@ a.disabled {color: #ccc!important; background: #eee!important; cursor: default!i
 .right-con input {height: 30px; line-height: 30px; border-radius: 2px; border: 1px solid #ddd; padding: 0 5px;}
 .right-con p {margin: 10px 0 30px;}
 .proxy-name {width: 440px;}
-.proxy-ip {width: 316px;}
+.proxy-host {width: 316px;}
 .proxy-port {width: 100px;}
 .proxy-separator {display: inline-block; width: 24px; height: 30px; line-height: 30px; text-align: center;}
 
@@ -51,9 +51,7 @@ a.disabled {color: #ccc!important; background: #eee!important; cursor: default!i
 	<div class="wrapper">
 		<div class="left-con">
 			<div id="proxyList" class="proxy-list">
-				<a data-name="whistle" href="javascript:;">whistle</a>
-				<a data-name="aeproxy" href="javascript:;">aeproxy</a>
-				<a data-name="other" href="javascript:;">other</a>
+				
 			</div>
 			<a id="createProxy" class="create-proxy" href="javascript:;">+ Create</a>
 		</div>
@@ -62,7 +60,7 @@ a.disabled {color: #ccc!important; background: #eee!important; cursor: default!i
 				<label>名称：</label>
 				<p><input id="proxyName" type="text" class="proxy-name" placeholder="name" maxlength="36" /></p>
 				<label>HTTP与HTTPS代理(IP与端口)：</label>
-				<p><input id="proxyIP" type="text" class="proxy-ip" placeholder="ip" maxlength="256" /><span class="proxy-separator">:</span><input id="proxyPort" type="text" class="proxy-port" placeholder="port" maxlength="5" /></p>
+				<p><input id="proxyHost" type="text" class="proxy-host" placeholder="host" maxlength="256" /><span class="proxy-separator">:</span><input id="proxyPort" type="text" class="proxy-port" placeholder="port" maxlength="5" /></p>
 			</div>
 			<div class="action-bar">
 				<a id="removeProxy" class="btn btn-danger" href="javascript:;">删除</a><a id="enableProxy" class="btn btn-primary" href="javascript:;">启用</a>

@@ -8,10 +8,17 @@ var proxyList = $('#proxyList').on('click', 'a', function(e) {
 		var name = self.attr('data-name');
 		localStorage.activeProxyName = name;
 		$('#proxyName').val(name || '');
-		$('#proxyIP').val(self.attr('data-ip') || '');
+		$('#proxyHost').val(self.attr('data-host') || '');
 		$('#proxyPort').val(self.attr('data-port') || '');
 		self.addClass('selected');
 		$('#proxyName').select().focus();
+		if (name == 'whistle') {
+			$('#removeProxy').hide();
+			$('#proxyName').prop('disabled', true);
+		} else {
+			$('#removeProxy').show();
+			$('#proxyName').prop('disabled', false);
+		}
 	}
 	
 	return false;
@@ -51,10 +58,12 @@ function createProxyElem(name, host, port) {
 }
 
 function init() {
-	proxy.getProxyConfig.list.forEach(function(item) {
-		createProxyElem(item.name, item.host, item, port).appendTo(proxyList);
+	proxy.getProxyConfig().list.forEach(function(item) {
+		createProxyElem(item.name, item.host, item.port).appendTo(proxyList);
 	});
 	
 	var activeName = localStorage.activeProxyName || 'whistle';
 	proxyList.find('a[data-name="' + activeName.replace(/(["\\])/g, '\\$1') +'"]').trigger('click');
 }
+
+init();
