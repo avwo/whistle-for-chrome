@@ -18,3 +18,5 @@
 1. 启动whistle：[https://github.com/avwo/whistle#whistle](https://github.com/avwo/whistle#whistle)
 2. 切换到whistle的代理，插件默认设置了两个代理whistle(127.0.0.1:8899)、aeproxy(127.0.0.1:9527)，默认是启用whistle的代理。
 3. 如果这些代理无法满足(可能你的whistle不是部署在本地，或者启动时更改了端口号)，这种情况可以通过 `设置代理` 来修改或新增代理。 
+
+![操作界面](https://raw.githubusercontent.com/avwo/whistle-for-chrome/master/img/desc.png)
