@@ -10,7 +10,7 @@
 
 如果你的网络可以访问Chrome商店，请直接访问安装：[https://chrome.google.com/webstore/detail/whistle/bokhoonoeoodkdhbdhlgaodjdcnbcpdl?hl=zh-CN&gl=CN](https://chrome.google.com/webstore/detail/whistle/bokhoonoeoodkdhbdhlgaodjdcnbcpdl?hl=zh-CN&gl=CN)
 
-### 手动安装(无法在隐身模式启用)
+### 手动安装(可能无法在隐身模式启用)
 	
 1. 下载whistle插件：[whistle.crx.zip](https://raw.githubusercontent.com/avwo/whistle-for-chrome/master/dist/whistle.crx.zip)
 2. 打开页面：[chrome://extensions](chrome://extensions)
