@@ -3,6 +3,7 @@ var proxy = win.proxy;
 var proxyName = $('#proxyName');
 var proxyHost = $('#proxyHost');
 var proxyPort = $('#proxyPort');
+var MAX_COUNT = 10;
 
 function existsName(name) {
 	return proxyList.find('a[data-name="' + name.replace(/(["\\])/g, '\\$1') +'"]').length;
@@ -121,7 +122,7 @@ $('#removeProxy').click(function() {
 	}
 	elem.remove();
 	next.trigger('click');
-	createProxyBtn.removeClass('disabled');
+	createProxyBtn.removeClass('disabled').removeAttr('title');
 	return false;
 });
 
@@ -149,7 +150,7 @@ function init() {
 	
 	var activeName = localStorage.activeProxyName || 'whistle';
 	proxyList.find('a[data-name="' + activeName.replace(/(["\\])/g, '\\$1') +'"]').trigger('click');
-	proxyList.find('a').length > 9 && createProxyBtn.addClass('disabled');
+	proxyList.find('a').length >= MAX_COUNT && createProxyBtn.addClass('disabled').attr('title', '最多同时可以设置' + MAX_COUNT + '个代理');
 }
 
 init();
