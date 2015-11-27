@@ -1,9 +1,17 @@
 # whistle-for-chrome
 设置代理、管理whistle配置页面的Chrome插件
 
+![图片说明](https://raw.githubusercontent.com/avwo/whistle-for-chrome/master/img/whistle.png)
+
 
 # 安装
 
+### 通过Chrome商店直接安装
+
+如果你的网络可以访问Chrome商店，请直接访问安装：[https://chrome.google.com/webstore/detail/whistle/bokhoonoeoodkdhbdhlgaodjdcnbcpdl?hl=zh-CN&gl=CN](https://chrome.google.com/webstore/detail/whistle/bokhoonoeoodkdhbdhlgaodjdcnbcpdl?hl=zh-CN&gl=CN)
+
+### 手动安装(无法在隐身模式启用)
+	
 1. 下载whistle插件：[whistle.crx.zip](https://raw.githubusercontent.com/avwo/whistle-for-chrome/master/dist/whistle.crx.zip)
 2. 打开页面：[chrome://extensions](chrome://extensions)
 3. 把下载的 **whistle.crx.zip** 解压后把 **whistle.crx** 文件拖到页面[chrome://extensions](chrome://extensions)，默认安装即可
