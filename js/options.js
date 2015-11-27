@@ -149,7 +149,7 @@ function init() {
 	
 	var activeName = localStorage.activeProxyName || 'whistle';
 	proxyList.find('a[data-name="' + activeName.replace(/(["\\])/g, '\\$1') +'"]').trigger('click');
-	proxyList.find('a').length > 6 && createProxyBtn.addClass('disabled');
+	proxyList.find('a').length > 9 && createProxyBtn.addClass('disabled');
 }
 
 init();
