@@ -1,7 +1,7 @@
 # whistle-for-chrome
 设置代理、管理whistle配置页面的Chrome插件
 
-![图片说明](https://raw.githubusercontent.com/avwo/whistle-for-chrome/master/img/whistle.png)
+![图片说明](https://raw.githubusercontent.com/avwo/whistle-for-chrome/master/dist/whistle.png)
 
 
 # 安装
