@@ -8,7 +8,7 @@
 
 ### 通过Chrome商店直接安装
 
-如果你的网络可以访问Chrome商店，请直接访问安装：[https://chrome.google.com/webstore/detail/whistle/bokhoonoeoodkdhbdhlgaodjdcnbcpdl?hl=zh-CN&gl=CN](https://chrome.google.com/webstore/detail/whistle/bokhoonoeoodkdhbdhlgaodjdcnbcpdl?hl=zh-CN&gl=CN)
+如果你的网络可以访问Chrome商店，请直接访问安装：[https://chrome.google.com/webstore/detail/whistle/bokhoonoeoodkdhbdhlgaodjdcnbcpdl](https://chrome.google.com/webstore/detail/whistle/bokhoonoeoodkdhbdhlgaodjdcnbcpdl)
 
 ### 手动安装(可能无法在隐身模式启用)
 	
