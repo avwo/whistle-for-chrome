@@ -20,5 +20,11 @@
 	"background": {
 		"scripts": ["js/jquery.js", "js/background.js"]
 	},
-	"permissions": ["proxy", "storage", "tabs", "<all_urls>", "http://*/*", "https://*/*"]
+	"content_scripts": [ {
+      "all_frames": false,
+      "js": [ "js/jquery.js", "js/content.js" ],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_end"
+    }],
+	"permissions": ["proxy", "storage", "tabs", "<all_urls>", "http://*/*", "https://*/*", "webRequest"]
 }
