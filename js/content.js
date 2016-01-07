@@ -1,10 +1,10 @@
 
 function getIp() {
-	chrome.extension.sendMessage({type: "getIp"}, function(ip) {
+	chrome.runtime.sendMessage({type: "getIp"}, function(ip) {
 		if (ip) {
 			alert(ip);
 		} else {
-			setTimeout(getIp, 200);
+			setTimeout(getIp, 500);
 		}
 	});
 }

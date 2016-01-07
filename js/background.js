@@ -225,7 +225,7 @@ chrome.webRequest.onHeadersReceived.addListener(
 	  }, {urls: [], types: []}, ['responseHeaders']
 );
 
-chrome.extension.onMessage.addListener(
+chrome.runtime.onMessage.addListener(
 		function(request, sender, sendResponse) {
 			var type = request && request.type;
 			if (type != 'getIp') {
@@ -237,21 +237,19 @@ chrome.extension.onMessage.addListener(
 				sendResponse(ip);
 			} else if (/^https:\/\//i.test(url)) {
 				var xhr = new XMLHttpRequest();
+				xhr.timeout = 5000;
 				xhr.open('get', 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url.substring(0, 512)), true);
 				xhr.onreadystatechange = function() {
 					if (xhr.readyState != 4) {
 						return;
 					}
-					
 					try {
-						var ip = JSON.parse(xhr.responseText).host;
-						if (ip) {
-							dnsCache[url] = ip;
+						if (ip = JSON.parse(xhr.responseText).host) {
+							sendResponse(ip);
 						}
 					} catch(e) {}
 				};
 				xhr.send();
-				sendResponse();
 			}
 		}
 );
