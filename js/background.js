@@ -213,8 +213,9 @@ var dnsCache = {}; //LRU
 chrome.webRequest.onHeadersReceived.addListener(
 	  function(info) {
 		  var ip = info.responseHeaders['x-host-ip'];
+		  console.log(info)
 		  if (ip) {
-			  dnsCache[info.url] = info.ip;
+			  dnsCache[info.url] = ip;
 		  }
 	  }, {urls: [], types: []}, ['responseHeaders']
 );
