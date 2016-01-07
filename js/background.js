@@ -231,9 +231,18 @@ chrome.extension.onMessage.addListener(
 			if (type != 'getIp') {
 				return;
 			}
-			var ip = dnsCache[sender.url];
+			var url = sender.url;
+			var ip = dnsCache[url];
 			if (ip) {
 				sendResponse(ip);
+			} else if (/^https:\/\//.test(url)) {
+				$.ajax({
+					url: 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url),
+					type: 'json',
+					success: function(data) {
+						
+					}
+				});
 			}
 		}
 );
