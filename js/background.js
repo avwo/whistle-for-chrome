@@ -209,6 +209,17 @@ function openWindow(url, pinned) {
     });
 }
 
+chrome.extension.onMessage.addListener(
+		function(request, sender, sendResponse) {
+			var type = request && request.type;
+			if (type != 'getIp') {
+				return;
+			}
+			
+			sendResponse('127.0.0.1');
+		}
+);
+
 function getUrl(url) {
 	
 	return url && url.replace(/#.*$/, '');

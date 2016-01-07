@@ -1,1 +1,6 @@
-alert(2)
+chrome.extension.sendMessage({type: "getIp"}, function(ip) {
+		if (!ip) {
+			return;
+		}
+		
+});
