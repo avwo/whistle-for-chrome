@@ -212,9 +212,15 @@ function openWindow(url, pinned) {
 var dnsCache = {}; //LRU
 chrome.webRequest.onHeadersReceived.addListener(
 	  function(info) {
-		  var ip = info.responseHeaders['x-host-ip'];
-		  if (ip) {
-			  dnsCache[info.url] = ip;
+		  var headers = info.responseHeaders || [];
+		  for (var i = 0, len = headers.length; i < len; i++) {
+			  var header = headers[i];
+			  if (header.name == 'x-host-ip') {
+				  if (header.value) {
+					  dnsCache[info.url] = header.value;
+				  }
+				  return;
+			  }
 		  }
 	  }, {urls: [], types: []}, ['responseHeaders']
 );
