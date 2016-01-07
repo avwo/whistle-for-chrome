@@ -219,11 +219,20 @@ function hideIp() {
 	localStorage.removeItem('showIp');
 	dnsCache = {};
 	tunnelDnsCache = {};
+	showHostIpInResHeaders();
 }
 
 function showIp() {
 	isShowIp = true;
 	localStorage.showIp = 1;
+	showHostIpInResHeaders(true);
+}
+
+function showHostIpInResHeaders(show) {
+	var xhr = new XMLHttpRequest();
+	xhr.timeout = 10000;
+	xhr.open('post', 'http://local.whistlejs.com/cgi-bin/show-host-ip-in-res-headers', true);
+	xhr.send('showHostIpInResHeaders=' + (show ? 1 : 0));
 }
 
 chrome.webRequest.onHeadersReceived.addListener(
