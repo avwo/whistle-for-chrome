@@ -210,8 +210,27 @@ function openWindow(url, pinned) {
 }
 
 var dnsCache = {}; //LRU
+var tunnelDnsCache = {};
+var count = 1;
+var isShowIp = localStorage.showIp;
+
+function hideIp() {
+	isShowIp = null;
+	localStorage.removeItem('showIp');
+	dnsCache = {};
+	tunnelDnsCache = {};
+}
+
+function showIp() {
+	isShowIp = true;
+	localStorage.showIp = 1;
+}
+
 chrome.webRequest.onHeadersReceived.addListener(
 	  function(info) {
+		  if (!isShowIp) {
+			  return;
+		  }
 		  var headers = info.responseHeaders || [];
 		  for (var i = 0, len = headers.length; i < len; i++) {
 			  var header = headers[i];
@@ -225,12 +244,10 @@ chrome.webRequest.onHeadersReceived.addListener(
 	  }, {urls: [], types: []}, ['responseHeaders']
 );
 
-var tunnelDnsCache = {};
-var count = 1;
 chrome.runtime.onMessage.addListener(
 		function(request, sender, sendResponse) {
 			var type = request && request.type;
-			if (type != 'getIp') {
+			if (!isShowIp || type != 'getIp') {
 				return;
 			}
 			var url = sender.url;
