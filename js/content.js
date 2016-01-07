@@ -15,4 +15,6 @@ function showIp(ip) {
 	
 }
 
-getIp();
+if (location.href.indexOf('http://local.whistle.com/') != 0) {
+	getIp();
+}
