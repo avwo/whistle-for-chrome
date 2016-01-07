@@ -231,6 +231,7 @@ function showIp() {
 function showHostIpInResHeaders(show) {
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', 'http://local.whistlejs.com/cgi-bin/show-host-ip-in-res-headers', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send('showHostIpInResHeaders=' + (show ? 1 : 0));
 }
 
