@@ -209,14 +209,26 @@ function openWindow(url, pinned) {
     });
 }
 
+var dnsCache = {}; //LRU
+chrome.webRequest.onHeadersReceived.addListener(
+	  function(info) {
+		  var ip = info.responseHeaders['x-host-ip'];
+		  if (ip) {
+			  dnsCache[info.url] = info.ip;
+		  }
+	  }, {urls: [], types: []}, ['responseHeaders']
+);
+
 chrome.extension.onMessage.addListener(
 		function(request, sender, sendResponse) {
 			var type = request && request.type;
 			if (type != 'getIp') {
 				return;
 			}
-			
-			sendResponse('127.0.0.1');
+			var ip = dnsCache[sender.url];
+			if (ip) {
+				sendResponse(ip);
+			}
 		}
 );
 
