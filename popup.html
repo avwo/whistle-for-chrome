@@ -12,6 +12,7 @@ body {margin: 6px;}
 .menu-list .item:hover { border: solid 1px #bcd; line-height: 24px; padding-left: 24px; border-radius: 3px; color: #47b;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(0.4, hsl(215, 67%, 97%)), color-stop(0.41, hsl(213, 48%, 95%)));}
 .menu-list .checked:before {content: '●'; color: rgb(78, 200, 59); font-size: 16px; position: absolute; left: 9px; top: -1px;}
+.menu-list .show-ip.checked:before {content: '√'; color: rgb(78, 200, 59); font-size: 12px; position: absolute; left: 9px; top: -1px;}
 .menu-list .checked:hover:before {left: 8px;}
 .menu-list .separator {height: 0; border-bottom: 1px solid #ddd; margin: 3px 0;}
 </style>
@@ -27,6 +28,7 @@ body {margin: 6px;}
 	<li class="item proxy direct">直接请求</li>
 	<li class="item proxy system">系统代理</li>
 	<li class="separator"></li>
+	<li class="item show-ip">显示IP</li>
 	<li class="item about">About</li>
 </ul>
 <script src="js/jquery.js"></script>

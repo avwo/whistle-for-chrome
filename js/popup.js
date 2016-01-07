@@ -29,6 +29,13 @@ var menu = $('#menu').on('click', 'li', function(e, initing) {
 		win.openOptions();
 	} else if (self.hasClass('about')) {
 		win.openAbout();
+	} else if (self.hasClass('show-ip')) {
+		if (self.hasClass('checked')) {
+			win.hideIp();
+		} else {
+			win.showIp();
+			self.addClass('checked');
+		}
 	}
 	
 	!initing && window.close();
@@ -50,6 +57,10 @@ function init() {
 		menu.find('.direct').trigger('click', true);
 	} else if (proxyConfig.system) {
 		system.trigger('click', true);
+	}
+	
+	if (localStorage.showIp) {
+		menu.find('.show-ip').trigger('click', true);
 	}
 }
 
