@@ -235,14 +235,23 @@ chrome.extension.onMessage.addListener(
 			var ip = dnsCache[url];
 			if (ip) {
 				sendResponse(ip);
-			} else if (/^https:\/\//.test(url)) {
-				$.ajax({
-					url: 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url),
-					type: 'json',
-					success: function(data) {
-						
+			} else if (/^https:\/\//i.test(url)) {
+				var xhr = new XMLHttpRequest();
+				xhr.open('get', 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url.substring(0, 512)), true);
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState != 4) {
+						return;
 					}
-				});
+					
+					try {
+						var ip = JSON.parse(xhr.responseText).host;
+						if (ip) {
+							dnsCache[url] = ip;
+						}
+					} catch(e) {}
+				};
+				xhr.send();
+				sendResponse();
 			}
 		}
 );
