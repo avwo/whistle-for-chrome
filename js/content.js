@@ -1,10 +1,12 @@
 
-function getIp() {
-	chrome.runtime.sendMessage({type: "getIp"}, function(ip) {
-		if (ip) {
+function getIp(index) {
+	chrome.runtime.sendMessage({type: 'getIp', index: index}, function(ip) {
+		if (typeof ip == 'string') {
 			alert(ip);
 		} else {
-			setTimeout(getIp, 500);
+			setTimeout(function() {
+				getIp(ip);
+			}, 500);
 		}
 	});
 }

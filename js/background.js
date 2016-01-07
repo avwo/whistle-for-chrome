@@ -225,6 +225,8 @@ chrome.webRequest.onHeadersReceived.addListener(
 	  }, {urls: [], types: []}, ['responseHeaders']
 );
 
+var tunnelDnsCache = {};
+var count = 1;
 chrome.runtime.onMessage.addListener(
 		function(request, sender, sendResponse) {
 			var type = request && request.type;
@@ -236,20 +238,30 @@ chrome.runtime.onMessage.addListener(
 			if (ip) {
 				sendResponse(ip);
 			} else if (/^https:\/\//i.test(url)) {
-				var xhr = new XMLHttpRequest();
-				xhr.timeout = 5000;
-				xhr.open('get', 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url.substring(0, 512)), true);
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState != 4) {
-						return;
-					}
-					try {
-						if (ip = JSON.parse(xhr.responseText).host) {
-							sendResponse(ip);
+				var index = request.index;
+				if (!index) {
+					var xhr = new XMLHttpRequest();
+					index = count++;
+					xhr.timeout = 10000;
+					xhr.open('get', 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url.substring(0, 512)), true);
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState != 4) {
+							return;
 						}
-					} catch(e) {}
-				};
-				xhr.send();
+						try {
+							if (ip = JSON.parse(xhr.responseText).host) {
+								tunnelDnsCache[index] = ip;
+							}
+						} catch(e) {}
+					};
+					xhr.send();
+					sendResponse(index);
+				} else if (tunnelDnsCache[index]) {
+					sendResponse(tunnelDnsCache[index]);
+					delete tunnelDnsCache[index];
+				} else {
+					sendResponse(index);
+				}
 			}
 		}
 );
