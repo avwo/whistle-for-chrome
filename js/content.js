@@ -12,7 +12,16 @@ function getIp(index) {
 }
 
 function showIp(ip) {
-	$(document.body).append('<span style="position: fixed; z-index: 999999999; right: 10px; bottom: 3px; font-size: 12px; color: #555; font-family: Helvetica Neue,Helvetica,Arial,sans-serif;">' + ip + '</span>')
+	var elem = $('<span style="position: fixed; z-index: 999999999; right: 10px; bottom: 3px;line-height: 14px; height: 14px; display: inline-block; font-size: 12px; color: #555; font-family: Helvetica Neue,Helvetica,Arial,sans-serif;">'
+			+ '<i style="font-style: normal; font-size: 14px; line-height: 12px; height: 14px; margin-right: 3px; background: rgb(243,243,243); width: 14px; text-align: center; color: rgb(63,63,63); cursor: pointer; display: none; border-radius: 14px;">&times;</i>' + ip + '</span>')
+			.appendTo(document.body);
+	elem.on('mouseenter', function() {
+		elem.find('i').css('display', 'inline-block');
+	}).on('mouseleave', function() {
+		elem.find('i').hide();
+	}).on('click', 'i', function() {
+		elem.hide();
+	});
 }
 
 if (location.href.indexOf('http://local.whistle.com/') != 0) {
