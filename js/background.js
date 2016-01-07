@@ -230,7 +230,7 @@ function showIp() {
 
 function showHostIpInResHeaders(show) {
 	var xhr = new XMLHttpRequest();
-	xhr.open('post', 'http://local.whistlejs.com/cgi-bin/show-host-ip-in-res-headers', true);
+	xhr.open('POST', 'http://local.whistlejs.com/cgi-bin/show-host-ip-in-res-headers', true);
 	xhr.send('showHostIpInResHeaders=' + (show ? 1 : 0));
 }
 
@@ -268,7 +268,7 @@ chrome.runtime.onMessage.addListener(
 					var xhr = new XMLHttpRequest();
 					index = count++;
 					xhr.timeout = 10000;
-					xhr.open('get', 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url.substring(0, 512)), true);
+					xhr.open('GET', 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url.substring(0, 512)), true);
 					xhr.onreadystatechange = function() {
 						if (xhr.readyState != 4) {
 							return;
