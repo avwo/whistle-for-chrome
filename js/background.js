@@ -7,7 +7,6 @@ var hasShowIpMenu;
 
 function checkWhistleVersion() {
 	var xhr = new XMLHttpRequest();
-	index = count++;
 	xhr.timeout = 10000;
 	xhr.open('GET', 'http://local.whistlejs.com/cgi-bin/server-info?' + Date.now(), true);
 	xhr.onreadystatechange = function() {
