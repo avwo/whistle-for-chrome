@@ -1,4 +1,4 @@
-
+var LOCALHOST = '127.0.0.1';
 var util = (function() {
 	
 	return {
@@ -24,12 +24,12 @@ var proxy = (function() {
 	if (!localStorage.init) {
 		list.push({
 			name: 'whistle',
-			host: '127.0.0.1',
+			host: LOCALHOST,
 			port: 8899,
 			active: true
 		}, {
 			name: 'aeproxy',
-			host: '127.0.0.1',
+			host: LOCALHOST,
 			port: 9527
 		});
 		localStorage.init = true;
@@ -57,7 +57,7 @@ var proxy = (function() {
 	}
 	
 	function active(host, port, callback) {
-		host = host || '127.0.0.1';
+		host = host || LOCALHOST;
 		port = parseInt(port) || 8899;
 		chrome.proxy.settings.set({value: {
 		    mode: 'fixed_servers',
@@ -86,7 +86,7 @@ var proxy = (function() {
 		item.active = true;
 		active(item.host, item.port, callback);
 		chrome.browserAction.setTitle({
-			title: name + '(' + (item.host || '127.0.0.1') + ':' + (item.port || 8899) + ')'
+			title: name + '(' + (item.host || LOCALHOST) + ':' + (item.port || 8899) + ')'
 		});
 		store();
 	}
