@@ -1,4 +1,9 @@
 var LOCALHOST = '127.0.0.1';
+var dnsCache = {};
+var tunnelDnsCache = {};
+var count = 1;
+var isShowIp = localStorage.showIp;
+
 var util = (function() {
 	
 	return {
@@ -208,11 +213,6 @@ function openWindow(url, pinned) {
 		});
     });
 }
-
-var dnsCache = {}; //LRU
-var tunnelDnsCache = {};
-var count = 1;
-var isShowIp = localStorage.showIp;
 
 function hideIp() {
 	isShowIp = null;
