@@ -4,7 +4,7 @@ function getIp(index) {
 	chrome.runtime.sendMessage({type: 'getIp', index: index}, function(ip) {
 		if (typeof ip == 'string') {
 			showIp(ip);
-		} else if (retryCount < 3) {
+		} else if (ip > 0 && retryCount < 3) {
 			setTimeout(function() {
 				retryCount++;
 				getIp(ip);

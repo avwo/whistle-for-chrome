@@ -278,8 +278,10 @@ chrome.runtime.onMessage.addListener(
 						try {
 							if (ip = JSON.parse(xhr.responseText).host) {
 								tunnelDnsCache[index] = ip;
+								return;
 							}
 						} catch(e) {}
+						tunnelDnsCache[index] = -1;
 					};
 					xhr.send();
 					sendResponse(index);
