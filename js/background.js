@@ -51,6 +51,7 @@ var proxy = (function() {
 	
 	function store() {
 		localStorage.proxyConfig = JSON.stringify(proxyConfig);
+		showHostIpInResHeaders(isShowIp);
 	}
 	
 	function cleartSelection() {
