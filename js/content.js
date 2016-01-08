@@ -1,5 +1,5 @@
 var retryCount = 0;
-var id = '_whistle-' + Date.now() + '_';
+var id = '_whistle-plugin-' + Date.now() + '_';
 
 function getIp(index) {
 	chrome.runtime.sendMessage({type: 'getIp', index: index}, function(ip) {
