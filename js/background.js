@@ -3,6 +3,26 @@ var dnsCache = {};
 var tunnelDnsCache = {};
 var count = 1;
 var isShowIp = localStorage.showIp;
+var hasShowIpMenu;
+
+function checkWhistleVersion() {
+	var xhr = new XMLHttpRequest();
+	index = count++;
+	xhr.timeout = 10000;
+	xhr.open('GET', 'http://local.whistlejs.com/cgi-bin/server-info', true);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState != 4) {
+			return;
+		}
+		hasShowIpMenu = false;
+		try {
+			var version = JSON.parse(xhr.responseText).server.version.split('.');
+			hasShowIpMenu = version[0] >= 0 && version[1] >= 7;
+		} catch(e) {}
+	};
+	xhr.send();
+}
+checkWhistleVersion();
 
 var util = (function() {
 	
@@ -52,6 +72,7 @@ var proxy = (function() {
 	function store() {
 		localStorage.proxyConfig = JSON.stringify(proxyConfig);
 		showHostIpInResHeaders(isShowIp);
+		checkWhistleVersion();
 	}
 	
 	function cleartSelection() {

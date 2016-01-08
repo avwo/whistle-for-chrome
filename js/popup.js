@@ -58,9 +58,11 @@ function init() {
 	} else if (proxyConfig.system) {
 		system.trigger('click', true);
 	}
-	
-	if (localStorage.showIp) {
-		menu.find('.show-ip').trigger('click', true);
+	var showIpMenu = menu.find('.show-ip');
+	if (win.hasShowIpMenu) {
+		win.isShowIp && showIpMenu.trigger('click', true);
+	} else {
+		showIpMenu.hide();
 	}
 }
 
