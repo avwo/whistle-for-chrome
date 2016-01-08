@@ -16,7 +16,7 @@ function checkWhistleVersion() {
 		hasShowIpMenu = false;
 		try {
 			var version = JSON.parse(xhr.responseText).server.version.split('.');
-			hasShowIpMenu = version[0] >= 0 && version[1] >= 7;
+			hasShowIpMenu = version[0] > 0 || version[1] >= 7;
 		} catch(e) {}
 	};
 	xhr.send();
