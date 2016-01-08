@@ -9,7 +9,7 @@ function checkWhistleVersion() {
 	var xhr = new XMLHttpRequest();
 	index = count++;
 	xhr.timeout = 10000;
-	xhr.open('GET', 'http://local.whistlejs.com/cgi-bin/server-info', true);
+	xhr.open('GET', 'http://local.whistlejs.com/cgi-bin/server-info?' + Date.now(), true);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState != 4) {
 			return;
@@ -291,7 +291,7 @@ chrome.runtime.onMessage.addListener(
 					var xhr = new XMLHttpRequest();
 					index = count++;
 					xhr.timeout = 10000;
-					xhr.open('GET', 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url.substring(0, 512)), true);
+					xhr.open('GET', 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url.substring(0, 512)), true)+ '&' + Date.now();
 					xhr.onreadystatechange = function() {
 						if (xhr.readyState != 4) {
 							return;
