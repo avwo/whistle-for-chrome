@@ -22,6 +22,7 @@ function checkWhistleVersion() {
 	xhr.send();
 }
 checkWhistleVersion();
+setInterval(checkWhistleVersion, 5000);
 
 var util = (function() {
 	
