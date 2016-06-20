@@ -1,7 +1,7 @@
 {
 	"name": "whistle",
 	"manifest_version": 2,
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"description": "whistle的chrome插件，配合whistle(https://github.com/avwo/whistle)使用",
 	"icons": {
 		"16": "img/icon16.png",
