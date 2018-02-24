@@ -1,4 +1,6 @@
 # whistle-for-chrome
+> 该插件更新中，推荐使用[SwitchyOmega](https://chrome.google.com/webstore/detail/padekgcemlokbadohgkifijomclgjgif)
+
 设置代理、管理whistle配置页面的Chrome插件，使用该插件前请先安装启用[whistle](https://github.com/avwo/whistle#whistle)
 
 ![图片说明](https://raw.githubusercontent.com/avwo/whistle-for-chrome/master/dist/whistle.png)
