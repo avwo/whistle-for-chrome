@@ -2,27 +2,6 @@ var LOCALHOST = '127.0.0.1';
 var dnsCache = {};
 var tunnelDnsCache = {};
 var count = 1;
-var isShowIp = localStorage.showIp;
-var hasShowIpMenu;
-
-function checkWhistleVersion() {
-	var xhr = new XMLHttpRequest();
-	xhr.timeout = 10000;
-	xhr.open('GET', 'http://local.whistlejs.com/cgi-bin/server-info?' + Date.now(), true);
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState != 4) {
-			return;
-		}
-		hasShowIpMenu = false;
-		try {
-			var version = JSON.parse(xhr.responseText).server.version.split('.');
-			hasShowIpMenu = version[0] > 0 || version[1] >= 7;
-		} catch(e) {}
-	};
-	xhr.send();
-}
-checkWhistleVersion();
-setInterval(checkWhistleVersion, 5000);
 
 var util = (function() {
 	
@@ -52,10 +31,6 @@ var proxy = (function() {
 			host: LOCALHOST,
 			port: 8899,
 			active: true
-		}, {
-			name: 'aeproxy',
-			host: LOCALHOST,
-			port: 9527
 		});
 		localStorage.init = true;
 		store();
@@ -71,8 +46,6 @@ var proxy = (function() {
 	
 	function store() {
 		localStorage.proxyConfig = JSON.stringify(proxyConfig);
-		showHostIpInResHeaders(isShowIp);
-		checkWhistleVersion();
 	}
 	
 	function cleartSelection() {
@@ -236,88 +209,7 @@ function openWindow(url, pinned) {
     });
 }
 
-function hideIp() {
-	isShowIp = null;
-	localStorage.removeItem('showIp');
-	dnsCache = {};
-	tunnelDnsCache = {};
-	showHostIpInResHeaders();
-}
-
-function showIp() {
-	isShowIp = true;
-	localStorage.showIp = 1;
-	showHostIpInResHeaders(true);
-}
-
-function showHostIpInResHeaders(show) {
-	var xhr = new XMLHttpRequest();
-	xhr.open('POST', 'http://local.whistlejs.com/cgi-bin/show-host-ip-in-res-headers', true);
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send('showHostIpInResHeaders=' + (show ? 1 : 0));
-}
-
-chrome.webRequest.onHeadersReceived.addListener(
-	  function(info) {
-		  if (!isShowIp) {
-			  return;
-		  }
-		  var headers = info.responseHeaders || [];
-		  for (var i = 0, len = headers.length; i < len; i++) {
-			  var header = headers[i];
-			  if (header.name == 'x-host-ip') {
-				  if (header.value) {
-					  dnsCache[info.url] = header.value;
-				  }
-				  return;
-			  }
-		  }
-	  }, {urls: [], types: []}, ['responseHeaders']
-);
-
-chrome.runtime.onMessage.addListener(
-		function(request, sender, sendResponse) {
-			var type = request && request.type;
-			if (!isShowIp || type != 'getIp') {
-				return;
-			}
-			var url = sender.url;
-			var ip = dnsCache[url];
-			if (ip) {
-				sendResponse(ip);
-			} else if (/^https:\/\//i.test(url)) {
-				var index = request.index;
-				if (!index) {
-					var xhr = new XMLHttpRequest();
-					index = count++;
-					xhr.timeout = 10000;
-					xhr.open('GET', 'http://local.whistlejs.com/cgi-bin/lookup-tunnel-dns?url=' + encodeURIComponent(url.substring(0, 512)), true)+ '&' + Date.now();
-					xhr.onreadystatechange = function() {
-						if (xhr.readyState != 4) {
-							return;
-						}
-						try {
-							if (ip = JSON.parse(xhr.responseText).host) {
-								tunnelDnsCache[index] = ip;
-								return;
-							}
-						} catch(e) {}
-						tunnelDnsCache[index] = -1;
-					};
-					xhr.send();
-					sendResponse(index);
-				} else if (tunnelDnsCache[index]) {
-					sendResponse(tunnelDnsCache[index]);
-					delete tunnelDnsCache[index];
-				} else {
-					sendResponse(index);
-				}
-			}
-		}
-);
-
 function getUrl(url) {
-	
 	return url && url.replace(/#.*$/, '');
 }
 

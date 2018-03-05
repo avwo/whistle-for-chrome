@@ -14,6 +14,8 @@ var menu = $('#menu').on('click', 'li', function(e, initing) {
 		win.openWhistlePage('rules');
 	} else if (self.hasClass('values')) {
 		win.openWhistlePage('values');
+	} else if (self.hasClass('plugins')) {
+		win.openWhistlePage('plugins');
 	} else if (self.hasClass('proxy')) {
 		if (self.hasClass('direct')) {
 			proxy.setDirect();
@@ -29,13 +31,6 @@ var menu = $('#menu').on('click', 'li', function(e, initing) {
 		win.openOptions();
 	} else if (self.hasClass('about')) {
 		win.openAbout();
-	} else if (self.hasClass('show-ip')) {
-		if (self.hasClass('checked')) {
-			win.hideIp();
-		} else {
-			win.showIp();
-			self.addClass('checked');
-		}
 	}
 	
 	!initing && window.close();
@@ -49,7 +44,7 @@ function init() {
 		elem.attr('data-name', item.name);
 		elem.attr('title', (item.host || '127.0.0.1') + ':' + (item.port || 8899));
 		elem.text(item.name);
-		elem.insertBefore(system);
+		elem.insertBefore(menu.find('.direct'));
 		item.active && elem.trigger('click', true);
 	});
 	
@@ -57,12 +52,6 @@ function init() {
 		menu.find('.direct').trigger('click', true);
 	} else if (proxyConfig.system) {
 		system.trigger('click', true);
-	}
-	var showIpMenu = menu.find('.show-ip');
-	if (win.hasShowIpMenu) {
-		win.isShowIp && showIpMenu.trigger('click', true);
-	} else {
-		showIpMenu.hide();
 	}
 }
 
