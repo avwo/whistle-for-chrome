@@ -1,7 +1,4 @@
 var LOCALHOST = '127.0.0.1';
-var dnsCache = {};
-var tunnelDnsCache = {};
-var count = 1;
 
 var util = (function() {
 	
