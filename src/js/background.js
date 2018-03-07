@@ -16,24 +16,22 @@ var util = (function() {
 var proxy = (function() {
 	var proxyConfig = util.parseJSON(localStorage.proxyConfig);
 	var proxies = {};
-	var list;
+	var list = proxyConfig.list;
 	
-	if (!$.isArray(proxyConfig.list)) {
+	if (!$.isArray(list)) {
 		list = proxyConfig.list = [];
 	}
 	
-	if (!localStorage.init) {
+	if (!localStorage.length) {
 		list.push({
 			name: 'whistle',
 			host: LOCALHOST,
-			port: 8899,
-			active: true
+			port: 8899
 		});
-		localStorage.init = true;
 		store();
 	}
 	
-	list = proxyConfig.list = proxyConfig.list.filter(function(item) {
+	list = proxyConfig.list = list.filter(function(item) {
 		if (!item || !item.name) {
 			return false;
 		}
