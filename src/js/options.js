@@ -147,7 +147,7 @@ function init() {
 		createProxyElem(item.name, item.host, item.port).appendTo(proxyList);
 	});
 	
-	var activeName = localStorage.activeProxyName || 'whistle';
+	var activeName = localStorage.activeProxyName || '';
 	proxyList.find('a[data-name="' + activeName.replace(/(["\\])/g, '\\$1') +'"]').trigger('click');
 	proxyList.find('a').length > 6 && createProxyBtn.addClass('disabled');
 }
