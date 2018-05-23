@@ -26,7 +26,8 @@ var proxy = (function() {
 		list.push({
 			name: 'whistle',
 			host: LOCALHOST,
-			port: 8899
+			port: 8899,
+			active: true
 		});
 		store();
 	}
