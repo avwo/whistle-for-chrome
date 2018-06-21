@@ -3,6 +3,9 @@
 **该插件被Chrome商店下架了，推荐先使用[SwitchyOmega](https://chrome.google.com/webstore/detail/padekgcemlokbadohgkifijomclgjgif)
 ，并手动配置代理 `127.0.0.1:8899`代替，或者用[proxifier抓取指定客户端的请求](https://juejin.im/post/5b18dab05188257d632262a7)。**
 
+![proxifier](https://user-images.githubusercontent.com/11450939/41725692-099ee9de-75a3-11e8-9c58-22c03db9e723.png)
+
+
 ![SwitchyOmega settings](https://user-images.githubusercontent.com/11450939/36636618-132bb09e-1a05-11e8-8514-813fd34a5454.png)
 
 <!-- 
