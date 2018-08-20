@@ -7,7 +7,7 @@
 
 
 ![SwitchyOmega settings](https://user-images.githubusercontent.com/11450939/36636618-132bb09e-1a05-11e8-8514-813fd34a5454.png)
-
+> 记得把 **不代理的地址列表** 清空
 <!-- 
 设置代理、管理whistle配置页面的Chrome插件，使用该插件前请先安装启用[whistle](https://github.com/avwo/whistle#whistle)
 
